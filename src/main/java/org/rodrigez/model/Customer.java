@@ -1,6 +1,8 @@
 package org.rodrigez.model;
 
-public class Customer extends Person {
+import java.io.Serializable;
+
+public class Customer extends Person implements Serializable {
     public Customer(String name) {
         super(name);
     }

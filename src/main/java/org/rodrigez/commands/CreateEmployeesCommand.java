@@ -9,15 +9,16 @@ import org.rodrigez.view.View;
 
 public class CreateEmployeesCommand extends Command{
     @Override
-    public void execute(Request request) throws RequestException {
-        View view = (View) request.getAttribute("view");
-        String name = (String) view.read("Customer name: ");
-        request.setAttribute("customer", new Customer(name));
-        name = (String) view.read("Manager name: ");
-        request.setAttribute("manager", new Manager(name));
-        name = (String) view.read("Designer name: ");
-        request.setAttribute("designer", new Designer(name));
-        request.setAttribute("message", "Employees created successfully\n");
-        executeNext(request);
+    public void execute(Request request){
+        try{
+            View view = (View) request.getAttribute("view");
+            request.setAttribute("customer", view.read(Customer.class));
+            request.setAttribute("manager", view.read(Manager.class));
+            request.setAttribute("designer", view.read(Designer.class));
+            request.setAttribute("message", "Employees created successfully\n");
+        } catch (RequestException e){
+            request.setAttribute("message",e.getMessage());
+        }
+
     }
 }

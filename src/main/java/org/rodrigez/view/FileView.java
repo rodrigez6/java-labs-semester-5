@@ -16,16 +16,15 @@ public class FileView implements View {
     }
 
     @Override
-    public void print(Object o) {
+    public void write(Object o) {
         switch (typeSave){
-            // TODO: 31.10.2018 яка різниця між стрінг і обджект
-            case "String": printString(o); break;
-            case "Object": printObject(o); break;
-            case "JSON": printJson(o); break;
+            case "String": writeString(o); break;
+            case "Object": writeObject(o); break;
+            case "JSON": writeJson(o); break;
         }
     }
 
-    private void printString(Object o){
+    private void writeString(Object o){
         try(ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileOut))) {
             stream.writeObject(o.toString());
         } catch (IOException e) {
@@ -33,7 +32,7 @@ public class FileView implements View {
         }
     }
 
-    private void printObject(Object o){
+    private void writeObject(Object o){
         try(ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileOut))) {
             stream.writeObject(o);
         } catch (IOException e) {
@@ -41,7 +40,7 @@ public class FileView implements View {
         }
     }
 
-    private void printJson(Object o){
+    private void writeJson(Object o){
         Gson gson = new Gson();
         try (PrintWriter writer = new PrintWriter(fileOut)){
             String json = gson.toJson(o);
@@ -52,17 +51,16 @@ public class FileView implements View {
     }
 
     @Override
-    public Object read(String attribute) {
+    public Object read(Class aClass) {
         switch (typeSave){
-            // TODO: 31.10.2018 яка різниця між стрінг і обджект
-            case "String": return readString(attribute);
-            case "Object": return readObject(attribute);
-            case "JSON": return readJson(attribute);
+            case "String": return readString();
+            case "Object": return readObject();
+            case "JSON": return readJson(aClass);
             default: return null;
         }
     }
 
-    private String readString(String attribute){
+    private String readString(){
         String s = null;
         try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileIn))){
             s = (String) stream.readObject();
@@ -72,7 +70,7 @@ public class FileView implements View {
         return s;
     }
 
-    private Object readObject(String attribute){
+    private Object readObject(){
         Object o = null;
         try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileIn))){
             o = stream.readObject();
@@ -82,13 +80,12 @@ public class FileView implements View {
         return o;
     }
 
-    private Object readJson(String attribute){
+    private Object readJson(Class aClass){
         Object o = null;
         Gson gson = new Gson();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileIn))) {
             String json = reader.readLine();
-            // TODO: 31.10.2018 як передати???
-            o = gson.fromJson(json, Object.class);
+            o = gson.fromJson(json, aClass);
         } catch (IOException e) {
             e.printStackTrace();
         }

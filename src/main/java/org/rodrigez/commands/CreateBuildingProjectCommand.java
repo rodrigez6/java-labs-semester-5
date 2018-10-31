@@ -12,26 +12,27 @@ import org.rodrigez.view.View;
 public class CreateBuildingProjectCommand extends Command {
 
     @Override
-    public void execute(Request request) throws RequestException {
+    public void execute(Request request){
         Project project;
-        do {
-            View view = (View) request.getAttribute("view");
-            int floorsNumber = Integer.parseInt((String) view.read("Floors number: "));
-            int housingClass = Integer.parseInt((String) view.read("Housing class(1,2,3): "));
-            String address = (String) view.read("Address: ");
-            project = new BuildingProject(floorsNumber,housingClass,address);
-            Validator validator = new BuildingProjectValidator();
-            try {
-                validator.validate(project);
-                break;
-            }
-            catch (BuildingProjectException e) {
-                e.printStackTrace();
-                view.print("Create again. Wrong params!\n");
-            }
-        } while (true);
-        request.setAttribute("project", project);
-        request.setAttribute("message", "Project created successfully\n");
-        executeNext(request);
+        try{
+            do {
+                View view = (View) request.getAttribute("view");
+                project = (Project) view.read(BuildingProject.class);
+                Validator validator = new BuildingProjectValidator();
+                try {
+                    validator.validate(project);
+                    break;
+                }
+                catch (BuildingProjectException e) {
+                    e.printStackTrace();
+                    view.write("Create again. Wrong params!\n");
+                }
+            } while (true);
+            request.setAttribute("project", project);
+            request.setAttribute("message", "Project created successfully\n");
+        } catch (RequestException e){
+            request.setAttribute("message",e.getMessage());
+        }
+
     }
 }

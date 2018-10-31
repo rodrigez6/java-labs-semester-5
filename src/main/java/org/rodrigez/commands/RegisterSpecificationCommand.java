@@ -8,13 +8,16 @@ import org.rodrigez.service.ManagerService;
 
 public class RegisterSpecificationCommand extends Command {
     @Override
-    public void execute(Request request) throws RequestException{
-        Manager manager = (Manager) request.getAttribute("manager");
-        Specification specification = (Specification) request.getAttribute("specification");
-        ManagerService managerService = new ManagerService();
-        managerService.registerSpecification(manager,specification);
-        String message = manager.getName() + " registered new specification for project :\n   " + specification.getProject().getDescription() + "\n";
-        request.setAttribute("message", message);
-        executeNext(request);
+    public void execute(Request request){
+        try{
+            Manager manager = (Manager) request.getAttribute("manager");
+            Specification specification = (Specification) request.getAttribute("specification");
+            ManagerService managerService = new ManagerService();
+            managerService.registerSpecification(manager,specification);
+            String message = manager.getName() + " registered new specification for project :\n   " + specification.getProject().getDescription() + "\n";
+            request.setAttribute("message", message);
+        } catch (RequestException e){
+            request.setAttribute("message",e.getMessage());
+        }
     }
 }

@@ -3,8 +3,10 @@ package org.rodrigez.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter @Getter
-public class BuildingProject extends Project{
+public class BuildingProject extends Project implements Serializable {
     private int floorsNumber;
     private int housingClass;
     private String address;

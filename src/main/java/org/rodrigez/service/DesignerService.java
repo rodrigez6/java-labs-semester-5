@@ -14,7 +14,8 @@ public class DesignerService {
                 CostCalculator.calculateDesignCost(specification);
     }
 
-    public void createCrew(Designer designer, int numberOfDesigners,Specification specification){
+    public void createCrew(Designer designer,Specification specification){
+        int numberOfDesigners = (int) (specification.getCost());
         DesignersCrew designersCrew = new DesignersCrew(numberOfDesigners);
         specification.setDesignersCrew(designersCrew);
     }
