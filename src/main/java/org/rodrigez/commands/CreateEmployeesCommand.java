@@ -11,15 +11,11 @@ public class CreateEmployeesCommand extends Command{
     @Override
     public void execute(Request request) throws RequestException {
         View view = (View) request.getAttribute("view");
-        view.print("Enter employees names:\n");
-        view.print("Customer name: ");
-        String name = view.scanString();
+        String name = (String) view.read("Customer name: ");
         request.setAttribute("customer", new Customer(name));
-        view.print("Manager name: ");
-        name = view.scanString();
+        name = (String) view.read("Manager name: ");
         request.setAttribute("manager", new Manager(name));
-        view.print("Designer name: ");
-        name = view.scanString();
+        name = (String) view.read("Designer name: ");
         request.setAttribute("designer", new Designer(name));
         request.setAttribute("message", "Employees created successfully\n");
         executeNext(request);

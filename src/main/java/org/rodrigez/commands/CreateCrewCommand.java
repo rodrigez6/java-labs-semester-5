@@ -12,9 +12,7 @@ public class CreateCrewCommand extends Command {
     public void execute(Request request) throws RequestException {
         View view = (View) request.getAttribute("view");
         Designer designer = (Designer) request.getAttribute("designer");
-        view.print("Enter number of designers:\n");
-        view.print("Number of designers: ");
-        int numberOfDesigners = view.scanInt();
+        int numberOfDesigners = Integer.parseInt((String) view.read("Number of designers: "));
         Specification specification = (Specification) request.getAttribute("specification");
         DesignerService designerService = new DesignerService();
         designerService.createCrew(designer,numberOfDesigners,specification);

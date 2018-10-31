@@ -16,13 +16,9 @@ public class CreateBuildingProjectCommand extends Command {
         Project project;
         do {
             View view = (View) request.getAttribute("view");
-            view.print("Enter building project params:\n");
-            view.print("Floors number: ");
-            int floorsNumber = view.scanInt();
-            view.print("Housing class(1,2,3): ");
-            int housingClass = view.scanInt();
-            view.print("Address: ");
-            String address = view.scanString();
+            int floorsNumber = Integer.parseInt((String) view.read("Floors number: "));
+            int housingClass = Integer.parseInt((String) view.read("Housing class(1,2,3): "));
+            String address = (String) view.read("Address: ");
             project = new BuildingProject(floorsNumber,housingClass,address);
             Validator validator = new BuildingProjectValidator();
             try {

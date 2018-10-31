@@ -7,17 +7,13 @@ public class ConsoleView implements View {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void print(String message) {
-        System.out.print(message);
+    public void print(Object o) {
+        System.out.print(o);
     }
 
     @Override
-    public int scanInt() {
-        return scanner.nextInt();
-    }
-
-    @Override
-    public String scanString() {
+    public String read(String attribute) {
+        System.out.print(attribute);
         return scanner.next();
     }
 }
