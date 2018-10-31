@@ -2,7 +2,6 @@ package org.rodrigez.app;
 
 import org.rodrigez.commands.*;
 import org.rodrigez.controller.Controller;
-import org.rodrigez.model.*;
 import org.rodrigez.routing.Request;
 import org.rodrigez.routing.RequestException;
 import org.rodrigez.view.ConsoleView;
@@ -10,24 +9,23 @@ import org.rodrigez.view.ConsoleView;
 public class Demo {
 
     private static Request request = new Request();
-    private static Controller controller = new Controller(new ConsoleView());
+    private static Controller controller = new Controller();
 
     public static void main(String args[]) throws RequestException {
-        Project project = new BuildingProject(5,3,"Harmatna,3");
-        request.setAttribute("specification", new Specification(project));
-        request.setAttribute("customer", new Customer("Customer Petro"));
-        request.setAttribute("manager", new Manager("Manager Ivan"));
-        request.setAttribute("designer", new Designer("Designer Myroslav"));
-        request.setAttribute("numberofdesigners",5);
-        request.setAttribute("message","");
-
-        Command command = new ProvideSpecificationCommand();
-        command.linkWith(new RegisterSpecificationCommand()).
-                linkWith(new BillTotalCostCommand()).
-                linkWith(new CreateCrewCommand());
-
-        request.setAttribute("command",command);
+        request.setAttribute("view", new ConsoleView());
+        request.setAttribute("command", new CreateBuildingProjectCommand());
         controller.execute(request);
-
+        request.setAttribute("command", new CreateSpecificationCommand());
+        controller.execute(request);
+        request.setAttribute("command", new CreateEmployeesCommand());
+        controller.execute(request);
+        request.setAttribute("command",new ProvideSpecificationCommand());
+        controller.execute(request);
+        request.setAttribute("command",new RegisterSpecificationCommand());
+        controller.execute(request);
+        request.setAttribute("command",new BillTotalCostCommand());
+        controller.execute(request);
+        request.setAttribute("command", new CreateCrewCommand());
+        controller.execute(request);
     }
 }

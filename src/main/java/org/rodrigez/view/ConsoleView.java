@@ -1,18 +1,23 @@
 package org.rodrigez.view;
 
-import org.rodrigez.routing.Request;
-import org.rodrigez.routing.RequestException;
-import org.rodrigez.view.messagetypes.MessageType;
+import java.util.Scanner;
 
 public class ConsoleView implements View {
+
+    private Scanner scanner = new Scanner(System.in);
+
     @Override
-    public void show(Request request) {
-        try {
-            MessageType messageType = (MessageType) request.getAttribute("messagetype");
-            String message = (String) request.getAttribute("message");
-            System.out.println(message);
-        } catch (RequestException e) {
-            e.printStackTrace();
-        }
+    public void print(String message) {
+        System.out.print(message);
+    }
+
+    @Override
+    public int scanInt() {
+        return scanner.nextInt();
+    }
+
+    @Override
+    public String scanString() {
+        return scanner.next();
     }
 }

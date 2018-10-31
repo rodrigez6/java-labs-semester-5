@@ -1,13 +1,9 @@
 package org.rodrigez.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter @Getter
 public abstract class Project {
     protected String description;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

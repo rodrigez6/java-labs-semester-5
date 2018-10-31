@@ -11,12 +11,16 @@ public abstract class Command {
         return next;
     }
 
-    public abstract String execute(Request request) throws RequestException;
+    public abstract void execute(Request request) throws RequestException;
 
-    String executeNext(Request request) throws RequestException {
+    void executeNext(Request request){
         if(next == null) {
-            return "info";
+            return;
         }
-        return next.execute(request);
+        try {
+            next.execute(request);
+        } catch (RequestException e){
+            request.setAttribute("message", e.getMessage());
+        }
     }
 }
