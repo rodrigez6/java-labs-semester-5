@@ -1,4 +1,4 @@
-package org.rodrigez.validator;
+package org.rodrigez.validation;
 
 import org.rodrigez.model.BuildingProjectException;
 

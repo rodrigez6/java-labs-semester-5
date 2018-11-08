@@ -3,29 +3,27 @@ package org.rodrigez.app;
 import org.rodrigez.commands.*;
 import org.rodrigez.controller.Controller;
 import org.rodrigez.routing.Request;
-import org.rodrigez.routing.RequestException;
-import org.rodrigez.view.ConsoleView;
+import org.rodrigez.routing.ModelException;
+import org.rodrigez.view.FileView;
 
 public class Demo {
 
     private static Request request = new Request();
     private static Controller controller = new Controller();
 
-    public static void main(String args[]) throws RequestException {
-        request.setAttribute("view", new ConsoleView());
-        request.setAttribute("command", new CreateBuildingProjectCommand());
-        controller.execute(request);
-        request.setAttribute("command", new CreateSpecificationCommand());
-        controller.execute(request);
-        request.setAttribute("command", new CreateEmployeesCommand());
-        controller.execute(request);
-        request.setAttribute("command",new ProvideSpecificationCommand());
-        controller.execute(request);
-        request.setAttribute("command",new RegisterSpecificationCommand());
-        controller.execute(request);
-        request.setAttribute("command",new BillTotalCostCommand());
-        controller.execute(request);
-        request.setAttribute("command", new CreateCrewCommand());
+    public static void main(String args[]) throws ModelException {
+
+        String[] handlers = new String[]{
+                "create-specification","provide-specification","register-specification",
+                "bill-cost","create-crew"};
+
+        for(String handler : handlers){
+            run(handler);
+        }
+    }
+
+    private static void run(String handler) throws ModelException {
+        request.setAttribute("handler", handler);
         controller.execute(request);
     }
 }

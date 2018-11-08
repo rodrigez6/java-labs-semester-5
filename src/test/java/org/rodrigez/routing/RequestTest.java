@@ -11,13 +11,13 @@ class RequestTest {
 
     @BeforeEach
     void setUp() {
-        request.setAttribute("attr1", 1);
+        request.setAttribute("attr1", "t");
     }
 
     @Test
-    void getAttribute() throws RequestException {
-        Assertions.assertEquals(1,request.getAttribute("attr1"));
-        Throwable thrown = assertThrows(RequestException.class, ()->{
+    void getAttribute() throws ModelException {
+        Assertions.assertEquals(1, request.getAttribute("attr1"));
+        Throwable thrown = assertThrows(ModelException.class, ()->{
             request.getAttribute("attr2");
         });
         Assertions.assertNotNull(thrown.getMessage());

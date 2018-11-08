@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public abstract class Person {
+public abstract class Employee {
     private String name;
+    private int id;
 
-    public Person(String name) {
+    public Employee(String name) {
         this.name = name;
     }
-
-
 }

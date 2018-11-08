@@ -1,17 +1,21 @@
 package org.rodrigez.view;
 
 import com.google.gson.Gson;
+import org.rodrigez.model.*;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileView implements View {
     private File fileIn;
     private File fileOut;
     private String typeSave;
 
-    public FileView(String fileInPath, String fileOutPath, String typeSave) {
-        this.fileIn = new File(fileInPath);
-        this.fileOut = new File(fileOutPath);
+    // TODO: 08.11.2018 typesave in enum
+    public FileView(String typeSave) {
+        this.fileIn = new File("src/main/resources/in-string.txt");
+        this.fileOut = new File("src/main/resources/out-string.txt");
         this.typeSave = typeSave;
     }
 
@@ -25,8 +29,8 @@ public class FileView implements View {
     }
 
     private void writeString(Object o){
-        try(ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileOut))) {
-            stream.writeObject(o.toString());
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileOut, true))) {
+            bufferedWriter.write("message=" + o);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,21 +57,58 @@ public class FileView implements View {
     @Override
     public Object read(Class aClass) {
         switch (typeSave){
-            case "String": return readString();
+            case "String": return readString(aClass);
             case "Object": return readObject();
             case "JSON": return readJson(aClass);
             default: return null;
         }
     }
 
-    private String readString(){
-        String s = null;
-        try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileIn))){
-            s = (String) stream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+    private Serializable readString(Class aClass){
+        Map<String,String> parameters = new HashMap<>();
+        try {
+            String str;
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileIn));
+            while ((str = bufferedReader.readLine()) != null) {
+                String[] keyValue = str.split("=");
+                parameters.put(keyValue[0],keyValue[1]);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return s;
+        if(aClass.equals(Manager.class)){
+            return readManager(parameters);
+        } else if(aClass.equals(Customer.class)){
+            return readCustomer(parameters);
+        } else if(aClass.equals(Designer.class)){
+            return readDesigner(parameters);
+        } else if(aClass.equals(BuildingProject.class)){
+            return readBuildingProject(parameters);
+        } else {
+            return null;
+        }
+    }
+
+    private BuildingProject readBuildingProject(Map<String, String> parameters) {
+        int floorsNumber = Integer.valueOf(parameters.get("building-project.floors-number"));
+        int housingClass = Integer.valueOf(parameters.get("building-project.housing-class"));
+        String address = parameters.get("building-project.address");
+        return new BuildingProject(floorsNumber,housingClass,address);
+    }
+
+    private Designer readDesigner(Map<String, String> parameters) {
+        String name = parameters.get("designer.name");
+        return new Designer(name);
+    }
+
+    private Customer readCustomer(Map<String, String> parameters) {
+        String name = parameters.get("customer.name");
+        return new Customer(name);
+    }
+
+    private Manager readManager(Map<String, String> parameters) {
+        String name = parameters.get("manager.name");
+        return new Manager(name);
     }
 
     private Object readObject(){

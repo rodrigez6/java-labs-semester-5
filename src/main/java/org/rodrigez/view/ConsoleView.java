@@ -15,7 +15,7 @@ public class ConsoleView implements View {
 
     @Override
     public Object read(Class aClass) {
-        System.out.println("Enter " + aClass.getName() + " params");
+        System.out.println("Enter " + aClass.getSimpleName() + " params");
         if(aClass.equals(Manager.class)){
             return readManager();
         } else if(aClass.equals(Customer.class)){

@@ -3,15 +3,13 @@ package org.rodrigez.routing;
 import java.util.HashMap;
 
 public class Request {
-    private HashMap<String,Object> attributes = new HashMap<>();
+    private HashMap<String,String> attributes = new HashMap<>();
 
-    public Object getAttribute(String key) throws RequestException {
-        Object value = attributes.get(key);
-        if (value==null) throw new RequestException("No such attribute");
-        return value;
+    public String getAttribute(String key) {
+        return attributes.get(key);
     }
 
-    public void setAttribute(String key, Object value){
+    public void setAttribute(String key, String value){
         attributes.put(key, value);
     }
 }

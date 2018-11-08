@@ -1,20 +1,24 @@
 package org.rodrigez.controller;
 
-import org.rodrigez.commands.Command;
+import org.rodrigez.commands.*;
 import org.rodrigez.routing.Request;
-import org.rodrigez.routing.RequestException;
-import org.rodrigez.view.View;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller {
-    public Controller(){
+    private Map<String, Handler> routes = new HashMap<>();
+    {
+        routes.put("create-specification", new CreateSpecificationHandler());
+        routes.put("provide-specification", new ProvideSpecificationHandler());
+        routes.put("register-specification", new RegisterSpecificationHandler());
+        routes.put("bill-cost", new BillCostHandler());
+        routes.put("create-crew", new CreateCrewHandler());
     }
 
-    public void execute(Request request) throws RequestException {
-        Command command = (Command) request.getAttribute("command");
-        request.setAttribute("message", "");
-        command.execute(request);
-        View view = (View) request.getAttribute("view");
-        String message = (String) request.getAttribute("message");
-        view.write(message);
+    public void execute(Request request){
+        String path = request.getAttribute("handler");
+        Handler handler = routes.get(path);
+        handler.execute(request);
     }
 }

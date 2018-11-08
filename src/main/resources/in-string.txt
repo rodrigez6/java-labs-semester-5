@@ -1,0 +1,6 @@
+customer.name=Mykola
+manager.name=Petro
+designer.name=Roman
+building-project.floors-number=10
+building-project.housing-class=2
+building-project.address=Shevchenka

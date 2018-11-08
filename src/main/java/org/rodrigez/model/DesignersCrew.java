@@ -8,8 +8,9 @@ import java.util.ArrayList;
 @Setter @Getter
 public class DesignersCrew {
     private ArrayList<Designer> designers;
+    private int crewSize;
 
-    public DesignersCrew(int numberOfDesigners) {
-        designers = new ArrayList<>(numberOfDesigners);
+    public DesignersCrew(int crewSize) {
+        this.crewSize = crewSize;
     }
 }
