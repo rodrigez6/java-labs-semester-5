@@ -29,7 +29,6 @@ public class FileTool {
         STRING,OBJECT,JSON
     }
 
-    // TODO: 08.11.2018 typesave in enum
     public FileTool(TypeSave typeSave) {
         this.fileIn = new File("src/main/resources/in-string.txt");
         this.fileOut = new File("src/main/resources/out-string.txt");

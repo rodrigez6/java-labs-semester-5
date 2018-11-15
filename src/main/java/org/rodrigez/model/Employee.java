@@ -9,14 +9,13 @@ import java.io.Serializable;
 public class Employee implements Serializable {
     private int id;
     private String name;
-    private EmployeePosition position;
+    private Role role;
 
-    public Employee(String name, EmployeePosition position) {
+    public Employee(String name, Role role) {
         this.name = name;
-        this.position = position;
+        this.role = role;
     }
 
-    public enum EmployeePosition {
-        CUSTOMER, MANAGER, DESIGNER
+    public Employee() {
     }
 }

@@ -28,6 +28,9 @@ public class MenuManagerHandler extends Handler {
                 request.setAttribute("handler","logout");
                 break;
             }
+            default: {
+                break;
+            }
         }
     }
 }

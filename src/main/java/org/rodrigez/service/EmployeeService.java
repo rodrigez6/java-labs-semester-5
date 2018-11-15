@@ -1,14 +1,14 @@
 package org.rodrigez.service;
 
 import org.rodrigez.model.Employee;
-import org.rodrigez.repository.EmployeeRepository;
+import org.rodrigez.model.dao.EmployeeDao;
 import org.rodrigez.util.BeanStorage;
 
 public class EmployeeService {
-    private EmployeeRepository employeeRepository = BeanStorage.INSTANCE.get(EmployeeRepository.class);
+    private EmployeeDao employeeDao = BeanStorage.INSTANCE.get(EmployeeDao.class);
 
-    public Employee findById(Integer employeeId){
-        return employeeRepository.findById(employeeId);
+    public Employee findById(int employeeId){
+        return employeeDao.findById(employeeId);
     }
 
     public boolean login(int loginId){

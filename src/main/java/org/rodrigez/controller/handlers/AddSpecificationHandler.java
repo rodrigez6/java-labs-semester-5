@@ -1,7 +1,8 @@
 package org.rodrigez.controller.handlers;
 
 import org.rodrigez.model.BuildingProject;
-import org.rodrigez.model.BuildingProjectException;
+import org.rodrigez.util.Mapping;
+import org.rodrigez.validation.BuildingProjectException;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
@@ -10,6 +11,7 @@ import org.rodrigez.util.FileTool.TypeSave;
 import org.rodrigez.validation.BuildingProjectValidator;
 import org.rodrigez.validation.Validator;
 
+@Mapping
 public class AddSpecificationHandler extends Handler {
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
     private Validator validator = new BuildingProjectValidator();

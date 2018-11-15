@@ -1,13 +1,13 @@
 package org.rodrigez.service;
 
 import org.rodrigez.model.*;
-import org.rodrigez.repository.SpecificationRepository;
+import org.rodrigez.model.dao.SpecificationDao;
 import org.rodrigez.util.BeanStorage;
 
 import java.util.Set;
 
 public class SpecificationService {
-    private SpecificationRepository specificationRepository = BeanStorage.INSTANCE.get(SpecificationRepository.class);
+    private SpecificationDao specificationDao = BeanStorage.INSTANCE.get(SpecificationDao.class);
     private EmployeeService employeeService = BeanStorage.INSTANCE.get(EmployeeService.class);
 
 
@@ -16,27 +16,27 @@ public class SpecificationService {
         Employee customer = employeeService.findById(customerId);
         specification.setCustomer(customer);
         specification.setProject(project);
-        specificationRepository.save(specification);
+        specificationDao.save(specification);
     }
 
     public Specification findById(Integer specificationId){
-        return specificationRepository.findById(specificationId);
+        return specificationDao.findById(specificationId);
     }
 
     public Set<Specification> findAllByCustomerId(Integer customerId){
-        return specificationRepository.findByCustomerId(customerId);
+        return specificationDao.findByCustomerId(customerId);
     }
 
     public Set<Specification> findAllByManagerId(Integer managerId){
-        return specificationRepository.findByManagerId(managerId);
+        return specificationDao.findByManagerId(managerId);
     }
 
     public Set<Specification> findAllByDesignerId(int designerId) {
-        return specificationRepository.findByDesignerId(designerId);
+        return specificationDao.findByDesignerId(designerId);
     }
 
     private Set<Specification> findNotRegistered(){
-        return specificationRepository.findNotRegistered();
+        return specificationDao.findNotRegistered();
     }
 
 
@@ -44,7 +44,7 @@ public class SpecificationService {
         Specification specification = findById(specificationId);
         if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
             specification.setCost(cost);
-            specificationRepository.save(specification);
+            specificationDao.save(specification);
             return true;
         }
         return false;
@@ -55,7 +55,7 @@ public class SpecificationService {
         if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
             DesignersCrew crew = new DesignersCrew(size);
             specification.setDesignersCrew(crew);
-            specificationRepository.save(specification);
+            specificationDao.save(specification);
             return true;
         }
         return false;
@@ -69,7 +69,7 @@ public class SpecificationService {
             specification.setManager(manager);
             specification.setRegistered(true);
             specification.setDesigner(designer);
-            specificationRepository.save(specification);
+            specificationDao.save(specification);
         }
     }
 

@@ -17,13 +17,4 @@ public class BuildingProject extends Project implements Serializable {
         this.address = address;
         this.description = "Building is based on " + address + ", floors number = " + floorsNumber + ", housing class = " + housingClass;
     }
-
-    public BuildingProject() {
-    }
-
-    @Override
-    public String toString() {
-        return description;
-    }
-
 }

@@ -1,7 +1,6 @@
 package org.rodrigez.validation;
 
 import org.rodrigez.model.BuildingProject;
-import org.rodrigez.model.BuildingProjectException;
 
 public class BuildingProjectValidator implements Validator{
     @Override

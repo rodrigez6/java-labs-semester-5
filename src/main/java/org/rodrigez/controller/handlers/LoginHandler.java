@@ -13,11 +13,15 @@ public class LoginHandler extends Handler {
     @Override
     public void execute(Request request) {
         System.out.print("For login type your id: ");
-        int loginId = scanner.nextInt();
+        // TODO: 15.11.18 number format exception
+        int loginId = Integer.parseInt(scanner.next());
         boolean authorized = employeeService.login(loginId);
         request.setAttribute("authorized", String.valueOf(authorized));
         if(authorized){
+            System.out.println("Authorized successfully");
             request.setAttribute("authorized-id", String.valueOf(loginId));
+        } else {
+            System.out.println("Invalid employee Id");
         }
 
         request.setAttribute("handler","menu");

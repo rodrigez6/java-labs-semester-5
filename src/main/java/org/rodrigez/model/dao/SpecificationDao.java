@@ -1,20 +1,19 @@
-package org.rodrigez.repository;
+package org.rodrigez.model.dao;
 
 import org.rodrigez.model.Specification;
 
 import java.util.*;
 
-public class SpecificationRepository implements Repository<Specification> {
-    Map<Integer,Specification> specificationMap = new HashMap<>();
+public class SpecificationDao {
+    private Map<Integer,Specification> map = new HashMap<>();
 
-    @Override
     public Specification findById(int id) {
-        return specificationMap.get(id);
+        return map.get(id);
     }
 
     public Set<Specification> findByCustomerId(int customerId){
         Set<Specification> selected = new LinkedHashSet<>();
-        for(Specification specification: specificationMap.values()){
+        for(Specification specification: map.values()){
             if(specification.getCustomer().getId()==customerId){
                 selected.add(specification);
             }
@@ -22,23 +21,22 @@ public class SpecificationRepository implements Repository<Specification> {
         return selected;
     }
 
-    @Override
     public Specification save(Specification specification) {
         Specification oldSpecification = findById(specification.getId());
         int id;
         if(oldSpecification==null){
-            id = specificationMap.size()+1;
+            id = map.size()+1;
             specification.setId(id);
         } else {
             id = oldSpecification.getId();
         }
-        specificationMap.put(id,specification);
+        map.put(id,specification);
         return specification;
     }
 
     public Set<Specification> findByManagerId(Integer managerId) {
         Set<Specification> selected = new LinkedHashSet<>();
-        for(Specification specification: specificationMap.values()){
+        for(Specification specification: map.values()){
             if(specification.getManager()!=null&&specification.getManager().getId()==managerId){
                 selected.add(specification);
             }
@@ -48,7 +46,7 @@ public class SpecificationRepository implements Repository<Specification> {
 
     public Set<Specification> findByDesignerId(Integer designerId) {
         Set<Specification> selected = new LinkedHashSet<>();
-        for(Specification specification: specificationMap.values()){
+        for(Specification specification: map.values()){
             if(specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
                 selected.add(specification);
             }
@@ -58,7 +56,7 @@ public class SpecificationRepository implements Repository<Specification> {
 
     public Set<Specification> findNotRegistered(){
         Set<Specification> selected = new LinkedHashSet<>();
-        for(Specification specification: specificationMap.values()){
+        for(Specification specification: map.values()){
             if(!specification.isRegistered()){
                 selected.add(specification);
             }
