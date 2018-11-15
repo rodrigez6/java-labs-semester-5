@@ -1,6 +1,3 @@
-customer.name=Mykola
-manager.name=Petro
-designer.name=Roman
-building-project.floors-number=10
+building-project.floors-number=5
 building-project.housing-class=2
-building-project.address=Shevchenka
+building-project.address=Bohdana

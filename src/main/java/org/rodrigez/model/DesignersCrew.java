@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 @Setter @Getter
 public class DesignersCrew {
-    private ArrayList<Designer> designers;
     private int crewSize;
 
     public DesignersCrew(int crewSize) {

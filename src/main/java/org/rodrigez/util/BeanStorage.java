@@ -1,4 +1,4 @@
-package org.rodrigez.routing;
+package org.rodrigez.util;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

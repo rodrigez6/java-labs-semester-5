@@ -1,37 +1,56 @@
-package org.rodrigez.view;
+package org.rodrigez.util;
 
 import com.google.gson.Gson;
 import org.rodrigez.model.*;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileView implements View {
+public class FileTool {
     private File fileIn;
     private File fileOut;
-    private String typeSave;
+    private TypeSave typeSave;
+
+    public TypeSave getTypeSave() {
+        return typeSave;
+    }
+
+    public File getFileIn() {
+        return fileIn;
+    }
+
+    public File getFileOut() {
+        return fileOut;
+    }
+
+    public enum TypeSave{
+        STRING,OBJECT,JSON
+    }
 
     // TODO: 08.11.2018 typesave in enum
-    public FileView(String typeSave) {
+    public FileTool(TypeSave typeSave) {
         this.fileIn = new File("src/main/resources/in-string.txt");
         this.fileOut = new File("src/main/resources/out-string.txt");
         this.typeSave = typeSave;
     }
 
-    @Override
     public void write(Object o) {
         switch (typeSave){
-            case "String": writeString(o); break;
-            case "Object": writeObject(o); break;
-            case "JSON": writeJson(o); break;
+            case STRING: writeString(o); break;
+            case OBJECT: writeObject(o); break;
+            case JSON: writeJson(o); break;
         }
     }
 
     private void writeString(Object o){
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileOut, true))) {
-            bufferedWriter.write("message=" + o);
-        } catch (IOException e) {
+            for(Field field: o.getClass().getFields()){
+                bufferedWriter.write(field.getName() + ":" + field.get(o));
+            }
+            bufferedWriter.write(o.toString());
+        } catch (IOException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -54,17 +73,16 @@ public class FileView implements View {
         }
     }
 
-    @Override
     public Object read(Class aClass) {
         switch (typeSave){
-            case "String": return readString(aClass);
-            case "Object": return readObject();
-            case "JSON": return readJson(aClass);
+            case STRING: return readString(aClass);
+            case OBJECT: return readObject();
+            case JSON: return readJson(aClass);
             default: return null;
         }
     }
 
-    private Serializable readString(Class aClass){
+    private Object readString(Class aClass){
         Map<String,String> parameters = new HashMap<>();
         try {
             String str;
@@ -76,39 +94,18 @@ public class FileView implements View {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(aClass.equals(Manager.class)){
-            return readManager(parameters);
-        } else if(aClass.equals(Customer.class)){
-            return readCustomer(parameters);
-        } else if(aClass.equals(Designer.class)){
-            return readDesigner(parameters);
-        } else if(aClass.equals(BuildingProject.class)){
+        if(aClass.equals(BuildingProject.class)){
             return readBuildingProject(parameters);
-        } else {
-            return null;
         }
+        return null;
     }
+
 
     private BuildingProject readBuildingProject(Map<String, String> parameters) {
         int floorsNumber = Integer.valueOf(parameters.get("building-project.floors-number"));
         int housingClass = Integer.valueOf(parameters.get("building-project.housing-class"));
         String address = parameters.get("building-project.address");
         return new BuildingProject(floorsNumber,housingClass,address);
-    }
-
-    private Designer readDesigner(Map<String, String> parameters) {
-        String name = parameters.get("designer.name");
-        return new Designer(name);
-    }
-
-    private Customer readCustomer(Map<String, String> parameters) {
-        String name = parameters.get("customer.name");
-        return new Customer(name);
-    }
-
-    private Manager readManager(Map<String, String> parameters) {
-        String name = parameters.get("manager.name");
-        return new Manager(name);
     }
 
     private Object readObject(){

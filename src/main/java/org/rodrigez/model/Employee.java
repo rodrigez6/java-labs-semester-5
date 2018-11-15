@@ -3,12 +3,20 @@ package org.rodrigez.model;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
-public abstract class Employee {
-    private String name;
-    private int id;
+import java.io.Serializable;
 
-    public Employee(String name) {
+@Setter @Getter
+public class Employee implements Serializable {
+    private int id;
+    private String name;
+    private EmployeePosition position;
+
+    public Employee(String name, EmployeePosition position) {
         this.name = name;
+        this.position = position;
+    }
+
+    public enum EmployeePosition {
+        CUSTOMER, MANAGER, DESIGNER
     }
 }

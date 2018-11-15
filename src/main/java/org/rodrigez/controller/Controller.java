@@ -1,24 +1,22 @@
 package org.rodrigez.controller;
 
-import org.rodrigez.commands.*;
-import org.rodrigez.routing.Request;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.rodrigez.controller.handlers.*;
+import org.rodrigez.util.HandlerManager;
+import org.rodrigez.util.Request;
 
 public class Controller {
-    private Map<String, Handler> routes = new HashMap<>();
-    {
-        routes.put("create-specification", new CreateSpecificationHandler());
-        routes.put("provide-specification", new ProvideSpecificationHandler());
-        routes.put("register-specification", new RegisterSpecificationHandler());
-        routes.put("bill-cost", new BillCostHandler());
-        routes.put("create-crew", new CreateCrewHandler());
-    }
 
     public void execute(Request request){
         String path = request.getAttribute("handler");
-        Handler handler = routes.get(path);
+        Handler handler = HandlerManager.getInstance().get(path);
         handler.execute(request);
+    }
+
+    public void runMenu(){
+        Request request = new Request();
+        request.setAttribute("handler", "menu");
+        while(true){
+            this.execute(request);
+        }
     }
 }
