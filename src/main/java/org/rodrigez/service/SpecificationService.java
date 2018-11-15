@@ -40,21 +40,25 @@ public class SpecificationService {
     }
 
 
-    public void updateCost(int designerId, Integer specificationId, int cost){
+    public boolean updateCost(int designerId, Integer specificationId, int cost){
         Specification specification = findById(specificationId);
-        if(specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
+        if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
             specification.setCost(cost);
             specificationRepository.save(specification);
+            return true;
         }
+        return false;
     }
 
-    public void updateCrew(int designerId, Integer specificationId, int size){
+    public boolean updateCrew(int designerId, Integer specificationId, int size){
         Specification specification = findById(specificationId);
-        if(specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
+        if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
             DesignersCrew crew = new DesignersCrew(size);
             specification.setDesignersCrew(crew);
             specificationRepository.save(specification);
+            return true;
         }
+        return false;
     }
 
     public void registerAll(int managerId, int designerId) {

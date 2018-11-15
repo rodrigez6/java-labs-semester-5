@@ -17,7 +17,11 @@ public class CreateCrewHandler extends Handler {
         System.out.print("Type new crew size: ");
         int size = scanner.nextInt();
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
-        specificationService.updateCrew(designerId, specificationId, size);
+        if(specificationService.updateCrew(designerId, specificationId, size)){
+            System.out.println("Crew size updated");
+        } else {
+            System.out.println("Invalid specification Id");
+        }
 
         request.setAttribute("handler", "menu");
     }

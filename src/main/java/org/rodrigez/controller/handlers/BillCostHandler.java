@@ -17,7 +17,11 @@ public class BillCostHandler extends Handler {
         System.out.print("Type new design cost: ");
         int cost = scanner.nextInt();
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
-        specificationService.updateCost(designerId, specificationId, cost);
+        if(specificationService.updateCost(designerId, specificationId, cost)){
+            System.out.println("Cost updated");
+        } else {
+            System.out.println("Invalid specification Id");
+        }
 
         request.setAttribute("handler", "menu");
     }

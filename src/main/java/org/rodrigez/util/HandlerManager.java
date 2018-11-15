@@ -19,6 +19,9 @@ public class HandlerManager {
         handlerMap.put("get-manager-specifications", new GetManagerSpecificationsHandler());
         handlerMap.put("get-designer-specifications", new GetDesignerSpecificationsHandler());
         handlerMap.put("save-specification", new SaveSpecificationHandler());
+        handlerMap.put("customer-menu", new MenuCustomerHandler());
+        handlerMap.put("manager-menu", new MenuManagerHandler());
+        handlerMap.put("designer-menu", new MenuDesignerHandler());
     }
 
     private static HandlerManager instance = new HandlerManager();
