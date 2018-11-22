@@ -3,22 +3,22 @@ package org.rodrigez.controller.handlers;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.view.form.UpdateCostForm;
 
-import java.util.Scanner;
-
-public class CreateCrewHandler extends Handler {
+public class UpdateCostHandler extends Handler {
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
-    private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void execute(Request request){
-        System.out.print("Type specification id: ");
-        int specificationId = scanner.nextInt();
-        System.out.print("Type new crew size: ");
-        int size = scanner.nextInt();
+    public void execute(Request request) {
+
+        new UpdateCostForm().execute(request);
+
+        int cost = Integer.parseInt(request.getAttribute("cost"));
+        int specificationId = Integer.parseInt(request.getAttribute("specification-id"));
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
-        if(specificationService.updateCrew(designerId, specificationId, size)){
-            System.out.println("Crew size updated");
+
+        if(specificationService.updateCost(designerId, specificationId, cost)){
+            System.out.println("Cost updated");
         } else {
             System.out.println("Invalid specification Id");
         }

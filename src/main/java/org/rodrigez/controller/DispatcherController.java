@@ -1,15 +1,17 @@
 package org.rodrigez.controller;
 
 import org.rodrigez.controller.handlers.*;
-import org.rodrigez.util.HandlerManager;
+import org.rodrigez.util.HandlerMapping;
 import org.rodrigez.util.Request;
 
-public class Controller {
+public class DispatcherController {
 
     public void execute(Request request){
         String path = request.getAttribute("handler");
-        Handler handler = HandlerManager.getInstance().get(path);
+        Handler handler = HandlerMapping.getInstance().get(path);
         handler.execute(request);
+        String message = request.getAttribute("message");
+        System.out.println(message);
     }
 
     public void runMenu(){

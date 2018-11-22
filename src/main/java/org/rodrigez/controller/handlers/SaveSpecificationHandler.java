@@ -6,18 +6,20 @@ import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
 import org.rodrigez.util.FileTool;
 import org.rodrigez.util.FileTool.TypeSave;
-
-import java.util.Scanner;
+import org.rodrigez.view.form.SaveSpecificationForm;
 
 public class SaveSpecificationHandler extends Handler {
+
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
-    private Scanner scanner = new Scanner(System.in);
     private FileTool fileTool = new FileTool(TypeSave.JSON);
 
     @Override
     public void execute(Request request) {
-        System.out.print("Type specification id: ");
-        int specificationId = scanner.nextInt();
+
+        new SaveSpecificationForm().execute(request);
+
+        int specificationId = Integer.parseInt(request.getAttribute("specification-id"));
+
         Specification specification = specificationService.findById(specificationId);
 
         if(specification==null){

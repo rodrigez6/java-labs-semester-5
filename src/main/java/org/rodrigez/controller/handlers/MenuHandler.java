@@ -12,9 +12,13 @@ public class MenuHandler extends Handler {
     public void execute(Request request) {
         System.out.println("-----------------------------------------------------------------------------------------");
         boolean authorized = Boolean.parseBoolean(request.getAttribute("authorized"));
+
         if(authorized){
+
             int authorizedId = Integer.parseInt(request.getAttribute("authorized-id"));
+
             Role position = employeeService.findById(authorizedId).getRole();
+
             switch (position) {
                 case CUSTOMER:{
                     request.setAttribute("handler","customer-menu");

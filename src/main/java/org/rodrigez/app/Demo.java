@@ -1,6 +1,6 @@
 package org.rodrigez.app;
 
-import org.rodrigez.controller.Controller;
+import org.rodrigez.controller.DispatcherController;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.Role;
 import org.rodrigez.model.dao.EmployeeDao;
@@ -11,7 +11,7 @@ import org.rodrigez.service.SpecificationService;
 
 public class Demo {
 
-    private static Controller controller;
+    private static DispatcherController controller;
 
     public static void main(String args[]) {
         configure();
@@ -36,6 +36,8 @@ public class Demo {
         beanStorage.add(SpecificationDao.class, new SpecificationDao());
         beanStorage.add(EmployeeService.class, new EmployeeService());
         beanStorage.add(SpecificationService.class, new SpecificationService());
-        controller = new Controller();
+        controller = new DispatcherController();
     }
+
+
 }

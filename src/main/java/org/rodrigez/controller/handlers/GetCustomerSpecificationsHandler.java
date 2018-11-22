@@ -12,9 +12,12 @@ public class GetCustomerSpecificationsHandler extends Handler {
 
     @Override
     public void execute(Request request) {
+
         int authorizedId = Integer.parseInt(request.getAttribute("authorized-id"));
-        System.out.println("Specifications of employee#" + authorizedId);
+
         Set<Specification> specificationSet = specificationService.findAllByCustomerId(authorizedId);
+
+        System.out.println("Specifications of employee#" + authorizedId);
         System.out.println(Specification.header());
         for(Specification specification: specificationSet){
             System.out.println(specification.toString());
