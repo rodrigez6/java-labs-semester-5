@@ -4,6 +4,7 @@ import org.rodrigez.model.Specification;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.view.page.SpecificationSetPage;
 
 import java.util.Set;
 
@@ -12,13 +13,12 @@ public class GetDesignerSpecificationsHandler extends Handler {
 
     @Override
     public void execute(Request request) {
+
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
-        System.out.println("Specifications of employee#" + designerId);
+
         Set<Specification> specificationSet = specificationService.findAllByDesignerId(designerId);
-        System.out.println(Specification.header());
-        for(Specification specification: specificationSet){
-            System.out.println(specification.toString());
-        }
+
+        new SpecificationSetPage().show(specificationSet);
 
         request.setAttribute("handler","menu");
     }

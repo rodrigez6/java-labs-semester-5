@@ -11,8 +11,8 @@ public class LoginForm implements Form {
 
     @Override
     public void execute(Request request) {
+
         System.out.print("For login type your id: ");
-        // TODO: 15.11.18 number format exception
         int loginId = Integer.parseInt(scanner.next());
         request.setAttribute("login-id", String.valueOf(loginId));
     }

@@ -2,6 +2,7 @@ package org.rodrigez.controller.handlers;
 
 import org.rodrigez.util.Request;
 import org.rodrigez.view.form.MenuDesignerForm;
+import org.rodrigez.view.page.MessagePage;
 
 public class MenuDesignerHandler extends Handler {
 
@@ -11,26 +12,26 @@ public class MenuDesignerHandler extends Handler {
         new MenuDesignerForm().execute(request);
 
         int c = Integer.parseInt(request.getAttribute("menu-choice"));
+
         switch (c){
             case 1: {
-                request.setAttribute("handler","get-designer-specifications");
-                break;
+                request.setAttribute("handler","get-designer-specifications"); break;
             }
             case 2: {
-                request.setAttribute("handler","update-cost");
-                break;
+                request.setAttribute("handler","update-cost"); break;
             }
             case 3: {
-                request.setAttribute("handler","update-crew");
-                break;
+                request.setAttribute("handler","update-crew"); break;
             }
             case 4: {
-                request.setAttribute("handler","save-specification");
-                break;
+                request.setAttribute("handler","save-specification"); break;
             }
             case 5: {
-                request.setAttribute("handler","logout");
-                break;
+                request.setAttribute("handler","logout"); break;
+            }
+            default: {
+                String message = "Unsupported operation";
+                new MessagePage().show(message);
             }
         }
     }

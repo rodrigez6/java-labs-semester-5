@@ -3,7 +3,10 @@ package org.rodrigez.controller.handlers;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.validation.NotAllowedException;
+import org.rodrigez.validation.NotFoundException;
 import org.rodrigez.view.form.UpdateCrewForm;
+import org.rodrigez.view.page.MessagePage;
 
 public class UpdateCrewHandler extends Handler {
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
@@ -17,11 +20,15 @@ public class UpdateCrewHandler extends Handler {
         int size = Integer.parseInt(request.getAttribute("size"));
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
 
-        if(specificationService.updateCrew(designerId, specificationId, size)){
-            System.out.println("Crew updated");
-        } else {
-            System.out.println("Invalid specification Id");
+        String message;
+        try {
+            specificationService.updateCrew(designerId,specificationId,size);
+            message = "Operation is successful";
+        } catch (NotFoundException | NotAllowedException e) {
+            message = e.getMessage();
         }
+
+        new MessagePage().show(message);
 
         request.setAttribute("handler", "menu");
     }

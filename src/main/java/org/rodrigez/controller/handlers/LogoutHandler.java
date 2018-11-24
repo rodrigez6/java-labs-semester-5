@@ -1,6 +1,7 @@
 package org.rodrigez.controller.handlers;
 
 import org.rodrigez.util.Request;
+import org.rodrigez.view.page.MessagePage;
 
 public class LogoutHandler extends Handler {
     @Override
@@ -8,7 +9,10 @@ public class LogoutHandler extends Handler {
 
         request.setAttribute("authorized","false");
         request.setAttribute("authorized-id",null);
-        System.out.print("Log out successfully\n");
+
+        String message = "Log out successfully";
+
+        new MessagePage().show(message);
 
         request.setAttribute("handler","menu");
     }

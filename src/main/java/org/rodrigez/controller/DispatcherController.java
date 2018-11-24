@@ -10,8 +10,8 @@ public class DispatcherController {
         String path = request.getAttribute("handler");
         Handler handler = HandlerMapping.getInstance().get(path);
         handler.execute(request);
-        String message = request.getAttribute("message");
-        System.out.println(message);
+        //String message = request.getAttribute("message");
+        //System.out.println(message);
     }
 
     public void runMenu(){

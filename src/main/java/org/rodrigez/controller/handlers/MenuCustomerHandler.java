@@ -2,11 +2,9 @@ package org.rodrigez.controller.handlers;
 
 import org.rodrigez.util.Request;
 import org.rodrigez.view.form.MenuCustomerForm;
-
-import java.util.Scanner;
+import org.rodrigez.view.page.MessagePage;
 
 public class MenuCustomerHandler extends Handler {
-    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public void execute(Request request) {
@@ -14,22 +12,23 @@ public class MenuCustomerHandler extends Handler {
         new MenuCustomerForm().execute(request);
 
         int c = Integer.parseInt(request.getAttribute("menu-choice"));
+
         switch (c) {
             case 1: {
-                request.setAttribute("handler", "get-customer-specifications");
-                break;
+                request.setAttribute("handler", "get-customer-specifications"); break;
             }
             case 2: {
-                request.setAttribute("handler", "add-specification");
-                break;
+                request.setAttribute("handler", "add-specification"); break;
             }
             case 3: {
-                request.setAttribute("handler", "save-specification");
-                break;
+                request.setAttribute("handler", "save-specification"); break;
             }
             case 4: {
-                request.setAttribute("handler", "logout");
-                break;
+                request.setAttribute("handler", "logout"); break;
+            }
+            default: {
+                String message = "Unsupported operation";
+                new MessagePage().show(message);
             }
         }
     }

@@ -13,7 +13,7 @@ public class UpdateCostForm implements Form {
     public void execute(Request request) {
         System.out.print("Type specification id: ");
         int specificationId = scanner.nextInt();
-        request.setAttribute("specificaton-id", String.valueOf(specificationId));
+        request.setAttribute("specification-id", String.valueOf(specificationId));
         System.out.print("Type new design cost: ");
         int cost = scanner.nextInt();
         request.setAttribute("cost", String.valueOf(cost));

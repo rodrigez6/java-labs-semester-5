@@ -3,16 +3,17 @@ package org.rodrigez.service;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.dao.EmployeeDao;
 import org.rodrigez.util.BeanStorage;
+import org.rodrigez.validation.NotFoundException;
 
 public class EmployeeService {
     private EmployeeDao employeeDao = BeanStorage.INSTANCE.get(EmployeeDao.class);
 
-    public Employee findById(int employeeId){
-        return employeeDao.findById(employeeId);
-    }
+    public Employee findById(int employeeId) throws NotFoundException {
 
-    public boolean login(int loginId){
-        Employee employee = findById(loginId);
-        return (employee!=null);
+        Employee employee = employeeDao.findById(employeeId);
+
+        if(employee==null) throw new NotFoundException("Employee not found with id " + employeeId);
+
+        return employee;
     }
 }

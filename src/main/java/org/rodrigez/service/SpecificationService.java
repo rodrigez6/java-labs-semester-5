@@ -3,24 +3,31 @@ package org.rodrigez.service;
 import org.rodrigez.model.*;
 import org.rodrigez.model.dao.SpecificationDao;
 import org.rodrigez.util.BeanStorage;
+import org.rodrigez.validation.NotAllowedException;
+import org.rodrigez.validation.NotFoundException;
 
 import java.util.Set;
 
 public class SpecificationService {
+
     private SpecificationDao specificationDao = BeanStorage.INSTANCE.get(SpecificationDao.class);
     private EmployeeService employeeService = BeanStorage.INSTANCE.get(EmployeeService.class);
 
+    public Specification findById(Integer specificationId) throws NotFoundException {
 
-    public void create(Project project, Integer customerId){
+        Specification specification = specificationDao.findById(specificationId);
+
+        if(specification==null)
+            throw new NotFoundException("Specification not found with id " + specificationId);
+
+        return specification;
+    }
+    public void create(Project project, Integer customerId) throws NotFoundException {
         Specification specification = new Specification();
         Employee customer = employeeService.findById(customerId);
         specification.setCustomer(customer);
         specification.setProject(project);
         specificationDao.save(specification);
-    }
-
-    public Specification findById(Integer specificationId){
-        return specificationDao.findById(specificationId);
     }
 
     public Set<Specification> findAllByCustomerId(Integer customerId){
@@ -40,37 +47,52 @@ public class SpecificationService {
     }
 
 
-    public boolean updateCost(int designerId, Integer specificationId, int cost){
+    public void updateCost(int authorizedId, Integer specificationId, int cost)
+            throws NotFoundException, NotAllowedException {
+
         Specification specification = findById(specificationId);
-        if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
-            specification.setCost(cost);
-            specificationDao.save(specification);
-            return true;
-        }
-        return false;
+
+        if(specification.getDesigner().getId()!=authorizedId)
+            throw new NotAllowedException("Authorized is not designer of specification with id " + specificationId);
+
+        specification.setCost(cost);
+        specificationDao.save(specification);
     }
 
-    public boolean updateCrew(int designerId, Integer specificationId, int size){
+    public void updateCrew(int authorizedId, Integer specificationId, int size)
+            throws NotFoundException, NotAllowedException {
+
         Specification specification = findById(specificationId);
-        if(specification!=null&&specification.getDesigner()!=null&&specification.getDesigner().getId()==designerId){
-            DesignersCrew crew = new DesignersCrew(size);
-            specification.setDesignersCrew(crew);
-            specificationDao.save(specification);
-            return true;
-        }
-        return false;
+
+        if(specification.getDesigner().getId()!=authorizedId)
+            throw new NotAllowedException("Authorized is not designer of specification with id " + specificationId);
+
+        DesignersCrew crew = new DesignersCrew(size);
+        specification.setDesignersCrew(crew);
+        specificationDao.save(specification);
     }
 
-    public void registerAll(int managerId, int designerId) {
+    public void registerAll(int managerId, int designerId) throws NotFoundException, NotAllowedException {
+
         Set<Specification> specificationSet = findNotRegistered();
+
         Employee designer = employeeService.findById(designerId);
+        if(designer.getRole()!=Role.DESIGNER)
+            throw new NotAllowedException("Employee with id " + designerId + " is not designer");
+
         Employee manager = employeeService.findById(managerId);
-        for(Specification specification: specificationSet){
-            specification.setManager(manager);
-            specification.setRegistered(true);
-            specification.setDesigner(designer);
-            specificationDao.save(specification);
+        if(manager.getRole()!=Role.MANAGER)
+            throw new NotAllowedException("Employee with id " + managerId + " is not manager");
+
+        for(Specification specification: specificationSet) {
+            registerSpecification(specification,manager,designer);
         }
     }
 
+    private void registerSpecification(Specification specification, Employee manager, Employee designer){
+        specification.setManager(manager);
+        specification.setRegistered(true);
+        specification.setDesigner(designer);
+        specificationDao.save(specification);
+    }
 }

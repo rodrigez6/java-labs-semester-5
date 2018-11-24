@@ -3,9 +3,13 @@ package org.rodrigez.controller.handlers;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.validation.NotAllowedException;
+import org.rodrigez.validation.NotFoundException;
 import org.rodrigez.view.form.UpdateCostForm;
+import org.rodrigez.view.page.MessagePage;
 
 public class UpdateCostHandler extends Handler {
+
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
 
     @Override
@@ -17,11 +21,15 @@ public class UpdateCostHandler extends Handler {
         int specificationId = Integer.parseInt(request.getAttribute("specification-id"));
         int designerId = Integer.parseInt(request.getAttribute("authorized-id"));
 
-        if(specificationService.updateCost(designerId, specificationId, cost)){
-            System.out.println("Cost updated");
-        } else {
-            System.out.println("Invalid specification Id");
+        String message;
+        try {
+            specificationService.updateCost(designerId, specificationId, cost);
+            message = "Operation is successful";
+        } catch (NotFoundException | NotAllowedException e) {
+            message = e.getMessage();
         }
+
+        new MessagePage().show(message);
 
         request.setAttribute("handler", "menu");
     }

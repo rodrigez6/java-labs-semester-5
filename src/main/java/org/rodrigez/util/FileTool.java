@@ -13,10 +13,6 @@ public class FileTool {
     private File fileOut;
     private TypeSave typeSave;
 
-    public TypeSave getTypeSave() {
-        return typeSave;
-    }
-
     public File getFileIn() {
         return fileIn;
     }
@@ -35,7 +31,7 @@ public class FileTool {
         this.typeSave = typeSave;
     }
 
-    public void write(Object o) {
+    public void write(Object o) throws IOException, IllegalAccessException {
         switch (typeSave){
             case STRING: writeString(o); break;
             case OBJECT: writeObject(o); break;
@@ -43,36 +39,27 @@ public class FileTool {
         }
     }
 
-    private void writeString(Object o){
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileOut, true))) {
-            for(Field field: o.getClass().getFields()){
-                bufferedWriter.write(field.getName() + ":" + field.get(o));
-            }
-            bufferedWriter.write(o.toString());
-        } catch (IOException | IllegalAccessException e) {
-            e.printStackTrace();
+    private void writeString(Object o) throws IOException, IllegalAccessException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileOut, true));
+        for(Field field: o.getClass().getFields()){
+            bufferedWriter.write(field.getName() + ":" + field.get(o));
         }
+        bufferedWriter.write(o.toString());
     }
 
-    private void writeObject(Object o){
-        try(ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileOut))) {
-            stream.writeObject(o);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void writeObject(Object o) throws IOException {
+        ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileOut));
+        stream.writeObject(o);
     }
 
-    private void writeJson(Object o){
+    private void writeJson(Object o) throws FileNotFoundException {
         Gson gson = new Gson();
-        try (PrintWriter writer = new PrintWriter(fileOut)){
-            String json = gson.toJson(o);
-            writer.write(json);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        PrintWriter writer = new PrintWriter(fileOut);
+        String json = gson.toJson(o);
+        writer.write(json);
     }
 
-    public Object read(Class aClass) {
+    public Object read(Class aClass) throws IOException, ClassNotFoundException {
         switch (typeSave){
             case STRING: return readString(aClass);
             case OBJECT: return readObject();
@@ -81,24 +68,19 @@ public class FileTool {
         }
     }
 
-    private Object readString(Class aClass){
+    private Object readString(Class aClass) throws IOException {
         Map<String,String> parameters = new HashMap<>();
-        try {
-            String str;
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileIn));
-            while ((str = bufferedReader.readLine()) != null) {
-                String[] keyValue = str.split("=");
-                parameters.put(keyValue[0],keyValue[1]);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String str;
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileIn));
+        while ((str = bufferedReader.readLine()) != null) {
+            String[] keyValue = str.split("=");
+            parameters.put(keyValue[0],keyValue[1]);
         }
         if(aClass.equals(BuildingProject.class)){
             return readBuildingProject(parameters);
         }
         return null;
     }
-
 
     private BuildingProject readBuildingProject(Map<String, String> parameters) {
         int floorsNumber = Integer.valueOf(parameters.get("building-project.floors-number"));
@@ -107,25 +89,15 @@ public class FileTool {
         return new BuildingProject(floorsNumber,housingClass,address);
     }
 
-    private Object readObject(){
-        Object o = null;
-        try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileIn))){
-            o = stream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return o;
+    private Object readObject() throws IOException, ClassNotFoundException {
+        ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileIn));
+        return stream.readObject();
     }
 
-    private Object readJson(Class aClass){
-        Object o = null;
+    private Object readJson(Class aClass) throws IOException {
         Gson gson = new Gson();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileIn))) {
-            String json = reader.readLine();
-            o = gson.fromJson(json, aClass);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return o;
+        BufferedReader reader = new BufferedReader(new FileReader(fileIn));
+        String json = reader.readLine();
+        return gson.fromJson(json, aClass);
     }
 }
