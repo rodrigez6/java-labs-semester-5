@@ -37,7 +37,7 @@ public class MenuHandler extends Handler {
                     }
                 }
             } catch (NotFoundException e) {
-                logger.error("Authorization error");
+                logger.error("User with authorized id not found");
             }
 
         } else {

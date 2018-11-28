@@ -1,5 +1,6 @@
 package org.rodrigez.controller.handlers;
 
+import org.apache.log4j.Logger;
 import org.rodrigez.model.Employee;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
@@ -9,6 +10,8 @@ import org.rodrigez.view.form.LoginForm;
 import org.rodrigez.view.page.MessagePage;
 
 public class LoginHandler extends Handler {
+
+    private final static Logger logger = Logger.getLogger(LoginHandler.class);
 
     private EmployeeService employeeService = BeanStorage.INSTANCE.get(EmployeeService.class);
 
@@ -23,10 +26,13 @@ public class LoginHandler extends Handler {
         try {
             Employee employee = employeeService.findById(loginId);
             message = employee.getName() + " authorized successfully";
+            logger.info(message);
             request.setAttribute("authorized-id", String.valueOf(loginId));
             request.setAttribute("authorized", String.valueOf(true));
         } catch (NotFoundException e) {
             message = e.getMessage();
+            logger.info(message);
+
         }
 
         new MessagePage().show(message);

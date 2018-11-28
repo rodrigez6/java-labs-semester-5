@@ -29,14 +29,14 @@ public class AddSpecificationHandler extends Handler {
             project = (BuildingProject) fileTool.read(BuildingProject.class);
             logger.info("Project generated from configuration in file " + fileTool.getFileIn());
         } catch (IOException | ClassNotFoundException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e.getMessage());
             return;
         }
 
         try {
             validator.validate(project);
         } catch (ValidationException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e.getMessage());
             return;
         }
 
@@ -48,7 +48,7 @@ public class AddSpecificationHandler extends Handler {
             message = "Operation is successful";
         } catch (NotFoundException e) {
             message = "Authorization error";
-            logger.error(message);
+            logger.error(e.getMessage());
         }
 
         new MessagePage().show(message);

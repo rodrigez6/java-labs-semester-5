@@ -16,7 +16,7 @@ public class Demo {
     public static void main(String[] args) {
         configure();
         addTestEmployees();
-        controller.runMenu();
+        controller.run();
     }
 
     private static void addTestEmployees() {

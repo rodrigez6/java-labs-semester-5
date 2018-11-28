@@ -1,3 +1,0 @@
-building-project.floors-number=5
-building-project.housing-class=2
-building-project.address=Bohdana
