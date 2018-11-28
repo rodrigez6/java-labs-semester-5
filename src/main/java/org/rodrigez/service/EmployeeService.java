@@ -6,7 +6,12 @@ import org.rodrigez.util.BeanStorage;
 import org.rodrigez.validation.NotFoundException;
 
 public class EmployeeService {
+
     private EmployeeDao employeeDao = BeanStorage.INSTANCE.get(EmployeeDao.class);
+
+    public EmployeeService(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
 
     public Employee findById(int employeeId) throws NotFoundException {
 

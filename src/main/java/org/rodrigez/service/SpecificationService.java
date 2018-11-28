@@ -10,8 +10,13 @@ import java.util.Set;
 
 public class SpecificationService {
 
-    private SpecificationDao specificationDao = BeanStorage.INSTANCE.get(SpecificationDao.class);
-    private EmployeeService employeeService = BeanStorage.INSTANCE.get(EmployeeService.class);
+    private SpecificationDao specificationDao;
+    private EmployeeService employeeService;
+
+    public SpecificationService(SpecificationDao specificationDao, EmployeeService employeeService) {
+        this.specificationDao = specificationDao;
+        this.employeeService = employeeService;
+    }
 
     public Specification findById(Integer specificationId) throws NotFoundException {
 

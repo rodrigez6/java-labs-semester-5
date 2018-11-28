@@ -1,0 +1,3 @@
+2018-11-28 20:14:08 INFO  DispatcherController:21 - Dispatcher controller started
+2018-11-28 20:14:32 INFO  LoginHandler:29 - Mykola authorized successfully
+2018-11-28 20:14:33 INFO  AddSpecificationHandler:30 - Project generated from configuration in file src/main/resources/in-string.txt

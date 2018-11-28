@@ -32,12 +32,18 @@ public class Demo {
 
     private static void configure(){
         BeanStorage beanStorage = BeanStorage.INSTANCE;
-        beanStorage.add(EmployeeDao.class,new EmployeeDao());
-        beanStorage.add(SpecificationDao.class, new SpecificationDao());
-        beanStorage.add(EmployeeService.class, new EmployeeService());
-        beanStorage.add(SpecificationService.class, new SpecificationService());
+
+        EmployeeDao employeeDao = new EmployeeDao();
+        SpecificationDao specificationDao = new SpecificationDao();
+        EmployeeService employeeService = new EmployeeService(employeeDao);
+        SpecificationService specificationService = new SpecificationService(specificationDao,employeeService);
+
+        beanStorage.add(EmployeeDao.class,employeeDao);
+        beanStorage.add(SpecificationDao.class, specificationDao);
+        beanStorage.add(EmployeeService.class, employeeService);
+        beanStorage.add(SpecificationService.class, specificationService);
+
         controller = new DispatcherController();
     }
-
 
 }
