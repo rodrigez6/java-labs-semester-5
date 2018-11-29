@@ -8,7 +8,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.Mockito;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.dao.EmployeeDao;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotFoundException;
 
 import static org.mockito.Mockito.*;
 
@@ -19,7 +19,7 @@ public class EmployeeServiceTest {
     private EmployeeService employeeService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         employeeDao = mock(EmployeeDao.class);
         employeeService = new EmployeeService(employeeDao);
     }

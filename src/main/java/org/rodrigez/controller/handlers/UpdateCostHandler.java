@@ -3,8 +3,8 @@ package org.rodrigez.controller.handlers;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
-import org.rodrigez.validation.NotAllowedException;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotAllowedException;
+import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.UpdateCostForm;
 import org.rodrigez.view.page.MessagePage;
 

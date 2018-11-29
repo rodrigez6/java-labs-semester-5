@@ -5,7 +5,7 @@ import org.rodrigez.model.Employee;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.EmployeeService;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.LoginForm;
 import org.rodrigez.view.page.MessagePage;
 

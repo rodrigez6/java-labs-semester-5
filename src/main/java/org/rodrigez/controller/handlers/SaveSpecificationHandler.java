@@ -7,7 +7,7 @@ import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
 import org.rodrigez.util.FileTool;
 import org.rodrigez.util.FileTool.TypeSave;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.SaveSpecificationForm;
 import org.rodrigez.view.page.MessagePage;
 

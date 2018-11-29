@@ -1,6 +1,7 @@
 package org.rodrigez.controller.handlers;
 
 import org.rodrigez.model.BuildingProject;
+import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.validation.*;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
@@ -9,6 +10,7 @@ import org.rodrigez.util.FileTool;
 import org.rodrigez.util.FileTool.TypeSave;
 
 import org.apache.log4j.Logger;
+import org.rodrigez.validation.validator.BuildingProjectValidator;
 import org.rodrigez.view.page.MessagePage;
 
 import java.io.IOException;

@@ -5,7 +5,7 @@ import org.rodrigez.model.Role;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;
 import org.rodrigez.service.EmployeeService;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotFoundException;
 
 public class MenuHandler extends Handler {
 

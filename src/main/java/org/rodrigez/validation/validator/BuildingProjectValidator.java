@@ -1,8 +1,9 @@
-package org.rodrigez.validation;
+package org.rodrigez.validation.validator;
 
 import org.rodrigez.model.BuildingProject;
+import org.rodrigez.validation.Validator;
 
-public class BuildingProjectValidator implements Validator{
+public class BuildingProjectValidator implements Validator {
     @Override
     public void validate(Object o) throws BuildingProjectValidationException {
 

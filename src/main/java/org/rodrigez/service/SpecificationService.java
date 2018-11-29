@@ -2,9 +2,8 @@ package org.rodrigez.service;
 
 import org.rodrigez.model.*;
 import org.rodrigez.model.dao.SpecificationDao;
-import org.rodrigez.util.BeanStorage;
-import org.rodrigez.validation.NotAllowedException;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotAllowedException;
+import org.rodrigez.service.exception.NotFoundException;
 
 import java.util.Set;
 

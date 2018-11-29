@@ -3,11 +3,11 @@ package org.rodrigez.service;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.dao.EmployeeDao;
 import org.rodrigez.util.BeanStorage;
-import org.rodrigez.validation.NotFoundException;
+import org.rodrigez.service.exception.NotFoundException;
 
 public class EmployeeService {
 
-    private EmployeeDao employeeDao = BeanStorage.INSTANCE.get(EmployeeDao.class);
+    private EmployeeDao employeeDao;
 
     public EmployeeService(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
