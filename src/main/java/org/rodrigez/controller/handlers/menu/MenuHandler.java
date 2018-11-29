@@ -1,6 +1,7 @@
-package org.rodrigez.controller.handlers;
+package org.rodrigez.controller.handlers.menu;
 
 import org.apache.log4j.Logger;
+import org.rodrigez.controller.handlers.Handler;
 import org.rodrigez.model.Role;
 import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.Request;

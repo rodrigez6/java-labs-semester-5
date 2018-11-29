@@ -1,10 +1,10 @@
 package org.rodrigez.util;
 
 import org.rodrigez.controller.handlers.*;
-import org.rodrigez.controller.handlers.MenuCustomerHandler;
-import org.rodrigez.controller.handlers.MenuDesignerHandler;
-import org.rodrigez.controller.handlers.MenuHandler;
-import org.rodrigez.controller.handlers.MenuManagerHandler;
+import org.rodrigez.controller.handlers.menu.MenuCustomerHandler;
+import org.rodrigez.controller.handlers.menu.MenuDesignerHandler;
+import org.rodrigez.controller.handlers.menu.MenuHandler;
+import org.rodrigez.controller.handlers.menu.MenuManagerHandler;
 
 import java.util.HashMap;
 import java.util.Map;

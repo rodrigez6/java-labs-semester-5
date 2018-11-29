@@ -1,5 +1,6 @@
-package org.rodrigez.controller.handlers;
+package org.rodrigez.controller.handlers.menu;
 
+import org.rodrigez.controller.handlers.Handler;
 import org.rodrigez.util.Request;
 import org.rodrigez.view.form.MenuCustomerForm;
 import org.rodrigez.view.page.MessagePage;
