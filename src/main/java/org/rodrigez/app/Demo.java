@@ -1,6 +1,7 @@
 package org.rodrigez.app;
 
 import org.rodrigez.controller.DispatcherController;
+import org.rodrigez.controller.Session;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.Role;
 import org.rodrigez.model.dao.EmployeeDao;
@@ -9,14 +10,20 @@ import org.rodrigez.util.BeanStorage;
 import org.rodrigez.service.EmployeeService;
 import org.rodrigez.service.SpecificationService;
 
-public class Demo {
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-    private static DispatcherController controller;
+public class Demo {
 
     public static void main(String[] args) {
         configure();
         addTestEmployees();
-        controller.run();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        DispatcherController controller = new DispatcherController();
+        for(int i=0;i<2;i++){
+            executorService.execute(new Session(i,controller));
+        }
     }
 
     private static void addTestEmployees() {
@@ -42,8 +49,6 @@ public class Demo {
         beanStorage.add(SpecificationDao.class, specificationDao);
         beanStorage.add(EmployeeService.class, employeeService);
         beanStorage.add(SpecificationService.class, specificationService);
-
-        controller = new DispatcherController();
     }
 
 }

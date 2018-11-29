@@ -1,3 +1,19 @@
-2018-11-28 20:14:08 INFO  DispatcherController:21 - Dispatcher controller started
-2018-11-28 20:14:32 INFO  LoginHandler:29 - Mykola authorized successfully
-2018-11-28 20:14:33 INFO  AddSpecificationHandler:30 - Project generated from configuration in file src/main/resources/in-string.txt
+2018-11-29 04:21:11 INFO  Session:16 - dispatcher controller started , session = 0
+2018-11-29 04:21:11 INFO  Session:16 - dispatcher controller started , session = 1
+2018-11-29 04:21:11 INFO  Session:16 - dispatcher controller started , session = 2
+2018-11-29 04:21:11 INFO  DispatcherController:16 - new request, session = 0, path = menu
+2018-11-29 04:21:11 INFO  DispatcherController:16 - new request, session = 0, path = login
+2018-11-29 04:21:39 INFO  LoginHandler:29 - Mykola authorized successfully
+2018-11-29 04:21:39 INFO  DispatcherController:16 - new request, session = 0, path = menu
+2018-11-29 04:21:39 INFO  DispatcherController:16 - new request, session = 0, path = customer-menu
+2018-11-29 04:21:56 INFO  DispatcherController:16 - new request, session = 0, path = get-customer-specifications
+2018-11-29 04:21:56 INFO  DispatcherController:16 - new request, session = 2, path = menu
+2018-11-29 04:21:56 INFO  DispatcherController:16 - new request, session = 2, path = login
+2018-11-29 04:22:10 INFO  LoginHandler:29 - Petro authorized successfully
+2018-11-29 04:22:10 INFO  DispatcherController:16 - new request, session = 2, path = menu
+2018-11-29 04:22:10 INFO  DispatcherController:16 - new request, session = 2, path = manager-menu
+2018-11-29 04:22:14 INFO  DispatcherController:16 - new request, session = 1, path = menu
+2018-11-29 04:22:14 INFO  DispatcherController:16 - new request, session = 1, path = login
+2018-11-29 04:22:28 INFO  LoginHandler:29 - Pavlo authorized successfully
+2018-11-29 04:22:28 INFO  DispatcherController:16 - new request, session = 1, path = menu
+2018-11-29 04:22:28 INFO  DispatcherController:16 - new request, session = 2, path = save-specification
