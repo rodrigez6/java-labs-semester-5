@@ -15,7 +15,7 @@ import org.rodrigez.view.page.MessagePage;
 
 import java.io.IOException;
 
-public class AddSpecificationHandler extends Handler {
+public class AddSpecificationHandler implements Handler {
 
     private final static Logger logger = Logger.getLogger(AddSpecificationHandler.class);
 
@@ -57,4 +57,5 @@ public class AddSpecificationHandler extends Handler {
 
         request.setAttribute("handler", "menu");
     }
+
 }

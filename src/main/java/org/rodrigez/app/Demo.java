@@ -10,6 +10,8 @@ import org.rodrigez.util.BeanStorage;
 import org.rodrigez.service.EmployeeService;
 import org.rodrigez.service.SpecificationService;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,9 +21,9 @@ public class Demo {
         configure();
         addTestEmployees();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
         DispatcherController controller = new DispatcherController();
-        for(int i=0;i<2;i++){
+        for(int i=0;i<1;i++){
             executorService.execute(new Session(i,controller));
         }
     }

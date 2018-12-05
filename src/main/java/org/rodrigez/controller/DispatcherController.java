@@ -13,7 +13,7 @@ public class DispatcherController {
         String path = request.getAttribute("handler");
         String session = request.getAttribute("session");
         Handler handler = HandlerMapping.getInstance().get(path);
-        logger.info("new request, session = " + session + ", path = " + path);
+        //logger.info("new request, session = " + session + ", path = " + path);
         handler.execute(request);
     }
 }

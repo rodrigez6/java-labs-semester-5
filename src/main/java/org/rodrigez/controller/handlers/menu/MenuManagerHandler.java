@@ -5,7 +5,7 @@ import org.rodrigez.util.Request;
 import org.rodrigez.view.form.MenuManagerForm;
 import org.rodrigez.view.page.MessagePage;
 
-public class MenuManagerHandler extends Handler {
+public class MenuManagerHandler implements Handler {
 
     @Override
     public void execute(Request request) {
@@ -33,4 +33,5 @@ public class MenuManagerHandler extends Handler {
             }
         }
     }
+
 }

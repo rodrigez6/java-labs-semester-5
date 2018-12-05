@@ -8,7 +8,7 @@ import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.UpdateCostForm;
 import org.rodrigez.view.page.MessagePage;
 
-public class UpdateCostHandler extends Handler {
+public class UpdateCostHandler implements Handler {
 
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
 
@@ -33,4 +33,5 @@ public class UpdateCostHandler extends Handler {
 
         request.setAttribute("handler", "menu");
     }
+
 }

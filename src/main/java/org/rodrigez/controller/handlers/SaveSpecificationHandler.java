@@ -13,7 +13,7 @@ import org.rodrigez.view.page.MessagePage;
 
 import java.io.IOException;
 
-public class SaveSpecificationHandler extends Handler {
+public class SaveSpecificationHandler implements Handler {
 
     private final static Logger logger = Logger.getLogger(AddSpecificationHandler.class);
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
@@ -43,4 +43,5 @@ public class SaveSpecificationHandler extends Handler {
 
         request.setAttribute("handler","menu");
     }
+
 }

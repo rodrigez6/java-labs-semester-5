@@ -8,7 +8,7 @@ import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.RegisterSpecificationForm;
 import org.rodrigez.view.page.MessagePage;
 
-public class RegisterSpecificationHandler extends Handler {
+public class RegisterSpecificationHandler implements Handler {
 
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
 
@@ -32,4 +32,5 @@ public class RegisterSpecificationHandler extends Handler {
 
         request.setAttribute("handler", "menu");
     }
+
 }

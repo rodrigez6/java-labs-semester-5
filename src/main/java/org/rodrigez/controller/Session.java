@@ -22,7 +22,4 @@ public class Session implements Runnable {
             dispatcherController.execute(request);
         }
     }
-
-
-
 }

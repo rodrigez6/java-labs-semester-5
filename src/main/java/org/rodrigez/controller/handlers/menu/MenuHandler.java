@@ -8,7 +8,7 @@ import org.rodrigez.util.Request;
 import org.rodrigez.service.EmployeeService;
 import org.rodrigez.service.exception.NotFoundException;
 
-public class MenuHandler extends Handler {
+public class MenuHandler implements Handler {
 
     private static final Logger logger = Logger.getLogger(MenuHandler.class);
 
@@ -45,4 +45,5 @@ public class MenuHandler extends Handler {
             request.setAttribute("handler","login");
         }
     }
+
 }

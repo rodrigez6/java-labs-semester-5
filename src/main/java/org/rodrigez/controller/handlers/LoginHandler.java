@@ -9,7 +9,7 @@ import org.rodrigez.service.exception.NotFoundException;
 import org.rodrigez.view.form.LoginForm;
 import org.rodrigez.view.page.MessagePage;
 
-public class LoginHandler extends Handler {
+public class LoginHandler implements Handler {
 
     private final static Logger logger = Logger.getLogger(LoginHandler.class);
 
@@ -39,4 +39,5 @@ public class LoginHandler extends Handler {
 
         request.setAttribute("handler","menu");
     }
+
 }

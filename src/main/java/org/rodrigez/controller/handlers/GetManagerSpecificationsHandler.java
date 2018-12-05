@@ -8,7 +8,7 @@ import org.rodrigez.view.page.SpecificationSetPage;
 
 import java.util.Set;
 
-public class GetManagerSpecificationsHandler extends Handler {
+public class GetManagerSpecificationsHandler implements Handler {
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
 
     @Override
@@ -22,4 +22,5 @@ public class GetManagerSpecificationsHandler extends Handler {
 
         request.setAttribute("handler","menu");
     }
+
 }
