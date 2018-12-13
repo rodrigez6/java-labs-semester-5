@@ -1,37 +1,47 @@
 package org.rodrigez.service;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.rodrigez.model.Employee;
-import org.rodrigez.model.Project;
 import org.rodrigez.model.Role;
 import org.rodrigez.model.Specification;
 import org.rodrigez.model.dao.SpecificationDao;
 import org.rodrigez.service.exception.NotAllowedException;
 import org.rodrigez.service.exception.NotFoundException;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class SpecificationServiceTest {
+@RunWith(Parameterized.class)
+public class SpecificationServiceRegisterAllTest {
+
+    @Parameterized.Parameter()
+    public int managerId;
+    @Parameterized.Parameter(1)
+    public int designerId;
+    @Parameterized.Parameter(2)
+    public Class<? extends Exception> expectedException;
+    @Parameterized.Parameter(3)
+    public String expectedExceptionMessage;
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {2,3,null,null},
+                {1,3,NotAllowedException.class,"Employee with id 1 is not manager"}
+        });
+    }
 
     private SpecificationDao specificationDao;
     private SpecificationService specificationService;
     private EmployeeService employeeService;
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     private Specification specification;
     private Employee employee1;
     private Employee employee2;
@@ -61,25 +71,18 @@ public class SpecificationServiceTest {
         specification.setDesigner(employee3);
     }
 
-
     @Test
-    public void create() throws NotFoundException {
+    public void registerAll() throws NotFoundException {
+        when(specificationDao.findNotRegistered()).thenReturn(Collections.singleton(specification));
         when(employeeService.findById(1)).thenReturn(employee1);
-        when(specificationDao.save(any())).thenReturn(specification);
-        specificationService.create(mock(Project.class),1);
-    }
+        when(employeeService.findById(2)).thenReturn(employee2);
+        when(employeeService.findById(3)).thenReturn(employee3);
 
-    @Test
-    public void updateCost() throws NotFoundException, NotAllowedException {
-        when(specificationDao.findById(1)).thenReturn(specification);
-        specificationService.updateCost(3,1,600);
-        assertEquals(specification.getCost(),600);
-    }
-
-    @Test(expected = NotAllowedException.class)
-    public void updateCrew_ERROR() throws NotFoundException, NotAllowedException {
-        when(specificationDao.findById(1)).thenReturn(specification);
-        specificationService.updateCrew(2,1,600);
-        expectedException.expectMessage("Authorized is not designer of specification with id 1");
+        try {
+            specificationService.registerAll(managerId,designerId);
+        } catch (NotAllowedException e) {
+            assertEquals(e.getClass(), expectedException);
+            assertEquals(e.getMessage(), expectedExceptionMessage);
+        }
     }
 }
