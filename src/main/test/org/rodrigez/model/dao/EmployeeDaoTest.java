@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.rodrigez.model.Employee;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
 
 public class EmployeeDaoTest {
 

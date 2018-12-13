@@ -3,16 +3,21 @@ package org.rodrigez.view.page;
 import org.rodrigez.model.DesignersCrew;
 import org.rodrigez.model.Employee;
 import org.rodrigez.model.Specification;
+import org.rodrigez.util.BeanStorage;
+import org.rodrigez.util.ResourceManager;
 import org.rodrigez.view.Page;
 
 import java.util.Set;
 
 public class SpecificationSetPage implements Page {
+
+    private ResourceManager resourceManager = BeanStorage.INSTANCE.get(ResourceManager.class);
+
     @Override
     public void show(Object object) {
         Set<Specification> specificationSet = (Set<Specification>) object;
         if(specificationSet.size()==0){
-            System.out.println("Specification set is empty");
+            System.out.println(resourceManager.getString("Specification_Set_Empty"));
         }else{
             System.out.println(header());
             for(Specification specification: specificationSet){

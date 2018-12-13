@@ -1,3 +1,6 @@
-2018-12-05 05:24:24 INFO  Session:16 - dispatcher controller started , session = 0
-2018-12-05 05:24:26 INFO  LoginHandler:29 - Mykola authorized successfully
-2018-12-05 05:24:28 INFO  AddSpecificationHandler:32 - Project generated from configuration in file src/main/resources/in-string.txt
+2018-12-13 08:52:40 INFO  Session:16 - dispatcher controller started , session = 0
+2018-12-13 08:52:46 INFO  LoginHandler:31 - Mykolaauthorized
+2018-12-13 08:52:47 INFO  AddSpecificationHandler:34 - Project generated from configuration in file src/main/resources/in-string.txt
+2018-12-13 08:52:53 INFO  AddSpecificationHandler:36 - Specification saved in file src/main/resources/out-string.txt
+2018-12-13 08:52:55 INFO  LogoutHandler:22 - Вийшов успішно
+2018-12-13 08:52:56 INFO  LoginHandler:31 - Petroauthorized

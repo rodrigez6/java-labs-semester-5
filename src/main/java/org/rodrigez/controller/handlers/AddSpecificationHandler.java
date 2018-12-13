@@ -1,15 +1,16 @@
 package org.rodrigez.controller.handlers;
 
+import org.apache.log4j.Logger;
 import org.rodrigez.model.BuildingProject;
-import org.rodrigez.service.exception.NotFoundException;
-import org.rodrigez.validation.*;
-import org.rodrigez.util.BeanStorage;
-import org.rodrigez.util.Request;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.service.exception.NotFoundException;
+import org.rodrigez.util.BeanStorage;
 import org.rodrigez.util.FileTool;
 import org.rodrigez.util.FileTool.TypeSave;
-
-import org.apache.log4j.Logger;
+import org.rodrigez.util.Request;
+import org.rodrigez.util.ResourceManager;
+import org.rodrigez.validation.ValidationException;
+import org.rodrigez.validation.Validator;
 import org.rodrigez.validation.validator.BuildingProjectValidator;
 import org.rodrigez.view.page.MessagePage;
 
@@ -20,6 +21,7 @@ public class AddSpecificationHandler implements Handler {
     private final static Logger logger = Logger.getLogger(AddSpecificationHandler.class);
 
     private SpecificationService specificationService = BeanStorage.INSTANCE.get(SpecificationService.class);
+    private ResourceManager resourceManager = BeanStorage.INSTANCE.get(ResourceManager.class);
     private Validator validator = new BuildingProjectValidator();
     private FileTool fileTool = new FileTool(TypeSave.STRING);
 
@@ -47,9 +49,9 @@ public class AddSpecificationHandler implements Handler {
         String message;
         try {
             specificationService.create(project,authorizedId);
-            message = "Operation is successful";
+            message = resourceManager.getString("OK");
         } catch (NotFoundException e) {
-            message = "Authorization error";
+            message = resourceManager.getString("Auth_Error");
             logger.error(e.getMessage());
         }
 

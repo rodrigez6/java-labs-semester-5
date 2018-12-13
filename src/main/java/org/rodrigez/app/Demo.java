@@ -6,12 +6,12 @@ import org.rodrigez.model.Employee;
 import org.rodrigez.model.Role;
 import org.rodrigez.model.dao.EmployeeDao;
 import org.rodrigez.model.dao.SpecificationDao;
-import org.rodrigez.util.BeanStorage;
 import org.rodrigez.service.EmployeeService;
 import org.rodrigez.service.SpecificationService;
+import org.rodrigez.util.BeanStorage;
+import org.rodrigez.util.ResourceManager;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,6 +41,8 @@ public class Demo {
 
     private static void configure(){
         BeanStorage beanStorage = BeanStorage.INSTANCE;
+        ResourceManager resourceManager = ResourceManager.INSTANCE;
+        resourceManager.changeResource(new Locale("uk","UA"));
 
         EmployeeDao employeeDao = new EmployeeDao();
         SpecificationDao specificationDao = new SpecificationDao();
@@ -51,6 +53,7 @@ public class Demo {
         beanStorage.add(SpecificationDao.class, specificationDao);
         beanStorage.add(EmployeeService.class, employeeService);
         beanStorage.add(SpecificationService.class, specificationService);
+        beanStorage.add(ResourceManager.class, resourceManager);
     }
 
 }
